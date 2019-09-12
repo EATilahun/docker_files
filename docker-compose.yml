@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'pg-db'
+      MYSQL_USER: ${ADMIN_USER_NAME}
+      MYSQL_PASSWORD: ${ADMIN_USER_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${PGDB_ROOT_PASSWORD}
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - pg-db:/var/lib/mysql
+# Names our volume
+volumes:
+  pg-db:
